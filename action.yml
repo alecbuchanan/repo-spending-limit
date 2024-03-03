@@ -1,5 +1,5 @@
 name: 'Repo Spending Limit'
-description: 'A GitHub Action to emulate Organization and Enterprise spending limits on a repository.'
+description: 'Impose a per-repository spending limit compared to your Org or Ent limits'
 author: 'alecbuchanan'
 
 # Add your action's branding here. This will appear on the GitHub Marketplace.
