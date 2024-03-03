@@ -13,7 +13,7 @@ inputs:
     description: 'How much money can be spent on this repository in a month?'
     required: true
   compare_to_enterprise:
-    description: 'Should we compare this repo's spending against the Enterprise? If false, we will compare against the Organization.'
+    description: 'Compare to Enterprise spending limit?'
     required: true
     default: false
 
