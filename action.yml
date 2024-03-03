@@ -18,7 +18,7 @@ inputs:
     default: false
 
 
-Define your outputs here.
+# Define your outputs here.
 outputs:
   is_over_spend_limit: 
     description: 'Are we over the spend limit?'
