@@ -56,6 +56,8 @@ jobs:
       - name: Test Local Action
         id: test-action
         uses: ./
+        env: 
+          GITHUB_TOKEN: ${{ github.token }}
         with:
           spend_limit: 2000
           compare_to_enterprise: false
