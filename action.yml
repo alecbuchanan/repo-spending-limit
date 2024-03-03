@@ -1,6 +1,6 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Repo Spending Limit'
+description: 'Impose a per-repository spending limit compared to your Org or Ent limits'
+author: 'alecbuchanan'
 
 # Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
@@ -9,15 +9,19 @@ branding:
 
 # Define your inputs here.
 inputs:
-  milliseconds:
-    description: 'Your input description here'
+  spend_limit:
+    description: 'How much money can be spent on this repository in a month?'
     required: true
-    default: '1000'
+  compare_to_enterprise:
+    description: 'Compare to Enterprise spending limit?'
+    required: true
+    default: false
+
 
 # Define your outputs here.
 outputs:
-  time:
-    description: 'Your output description here'
+  is_over_spend_limit: 
+    description: 'Are we over the spend limit?'
 
 runs:
   using: node20

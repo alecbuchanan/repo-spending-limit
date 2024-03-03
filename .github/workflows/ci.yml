@@ -56,9 +56,12 @@ jobs:
       - name: Test Local Action
         id: test-action
         uses: ./
+        env: 
+          GITHUB_TOKEN: ${{ github.token }}
         with:
-          milliseconds: 2000
+          spend_limit: 2000
+          compare_to_enterprise: false
 
       - name: Print Output
         id: output
-        run: echo "${{ steps.test-action.outputs.time }}"
+        run: echo "${{ steps.test-action.outputs.is_over_spend_limit }}"

@@ -1,5 +1,5 @@
 import * as core from '@actions/core'
-import { wait } from './wait'
+import { isOverSpendLimit } from './spend-check'
 
 /**
  * The main function for the action.
@@ -7,20 +7,27 @@ import { wait } from './wait'
  */
 export async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
+    const spendLimit: string = core.getInput('spend_limit')
+    const compareToEnterprise: boolean =
+      core.getInput('compare_to_enterprise') === 'true'
 
-    // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-    core.debug(`Waiting ${ms} milliseconds ...`)
+    if (isNaN(parseFloat(spendLimit))) {
+      throw new Error(`Invalid spend limit: ${spendLimit}`)
+    }
 
-    // Log the current timestamp, wait, then log the new timestamp
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    core.info(`Spend limit: $${spendLimit}`)
+    core.info(`Compare to enterprise: ${compareToEnterprise}`)
 
-    // Set outputs for other workflow steps to use
-    core.setOutput('time', new Date().toTimeString())
+    const isOverSpend = await isOverSpendLimit(spendLimit, compareToEnterprise)
+
+    core.info(`Is over spend limit: ${isOverSpend}`)
+
+    core.setOutput('is_over_spend_limit', isOverSpend)
   } catch (error) {
-    // Fail the workflow run if an error occurs
-    if (error instanceof Error) core.setFailed(error.message)
+    if (error instanceof Error) {
+      core.setFailed(
+        `An error occurred with spend limit. Error message: ${error.message}`
+      )
+    }
   }
 }
